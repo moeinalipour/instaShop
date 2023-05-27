@@ -1,0 +1,14 @@
+{
+  "name": "instashop",
+  "version": "1.0.0",
+  "description": "instaShop is a sample website for Gaming product with ReactJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}

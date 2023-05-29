@@ -134,3 +134,143 @@ body {
 }
 
 /* End of Products section */
+
+/* Cart section */
+.cartContainer{
+  /* visibility: hidden; */
+  visibility: visible;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartSection{
+  position: relative;
+  padding-top: 20px;
+  max-width: 800px;
+  max-height: 600px;
+  width: 60%;
+  height: 80%;
+  background-color: #fff!important ;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-section-close-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  color: white;
+  background-color: var(--primaryColor);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.cart-items-wrapper{
+  overflow: auto;
+  margin: 10px auto;
+  position: relative;
+  padding-top: 20px;
+  max-width: 800px;
+  max-height: 600px;
+  width: 100%;
+  height: 100%;
+  background-color: #fff!important ;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.cart-item{
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-column-gap: 2.5rem;
+  grid-row-gap: 3.5rem;
+  margin-top: 20px;
+  width: 100%;
+  /* background-color: #6d28d9; */
+  display: grid;
+}
+
+.cart-item-img-wrapper{
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: aqua; */
+}
+
+.cart-item-img-wrapper img{
+  width: 200px;
+  border-radius: 10px;
+max-height: 150px;
+}
+
+.cart-item-details{
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-price{
+  margin-top: 20px;
+  color: gray;
+  font-weight: bold;
+}
+
+.cart-item-count-section{
+  justify-self: center;
+  /* background-color: bisque; */
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-count-increment{
+  cursor: pointer;
+  color: var(--primaryColor);
+}
+
+.cart-item-count-decrement{
+  cursor: pointer;
+  color: rgb(255, 98, 98);
+}
+
+.cart-item-count-number{
+  margin: 15px;
+}
+
+.cart-item-delete-section{
+  color: rgb(255, 98, 98);
+  justify-self: center;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-delete-icon{
+  cursor: pointer;
+}
+/* End of Cart section */

@@ -59,7 +59,7 @@ export function CartItem() {
                     <h3>Asus 4070</h3>
                 </div>
                 <div className="cart-item-price">
-                    <p>$ 500</p>
+                    <p>$ 800</p>
                 </div>
             </div>
             <div className="cart-item-count-section">
@@ -81,6 +81,7 @@ export function CartItem() {
     );
 }
 
+localStorage.setItem('itemsInCart', null);
 
 const cartItemProducts = [
     { id: 1, title: 'Asus 4070', price: 800, thumbnailUrl: product1 },

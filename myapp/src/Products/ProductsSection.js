@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import product1 from './Products-Picture/product1.webp'
 import product2 from './Products-Picture/product2.webp'
 import product3 from './Products-Picture/product3.webp'
@@ -6,10 +7,10 @@ import product5 from './Products-Picture/product5.webp'
 
 export default function ProductsSection() {
 
-    const productsItems = products.map(product => 
-        <ProductCard title={product.title} price={product.price} thumbnail={product.thumbnailUrl} />
+    const productsItems = products.map(product =>
+        <ProductCard id={product.id} title={product.title} price={product.price} thumbnail={product.thumbnailUrl} />
 
-        )
+    )
 
     return (
         <section>
@@ -34,17 +35,40 @@ function ProductsSectionTitle() {
 
 function ProductCard(props) {
 
+    const [productCartButtonText, setProductCartButtonText] = useState('Add to cart');
+    const [isProductButtonCliecked, setIsProductButtonCliecked] = useState(false);
+    
+    function addtoCartButton() {
+        setIsProductButtonCliecked(true);
+        setProductCartButtonText('In Cart');
+        const product = {id: props.id, title: props.title, price: props.price};
+        let currenCartItems = JSON.parse(localStorage.getItem('itemsInCart'));
+        let selectedItem = product;
+
+        if (currenCartItems === null){
+            let selectedItem = [product];
+
+            localStorage.setItem('itemsInCart' , JSON.stringify(selectedItem));
+            console.log( JSON.parse(localStorage.getItem('itemsInCart')));
+        }
+        else{
+            currenCartItems.push(selectedItem);
+            localStorage.setItem('itemsInCart', JSON.stringify(currenCartItems));
+            console.log( JSON.parse(localStorage.getItem('itemsInCart')));
+        }
+    }
+
 
     return (
         <section className="product">
             <div className="products-img-container">
-                <img className="products-img" src={props.thumbnail}  />
+                <img className="products-img" src={props.thumbnail} />
             </div>
             <div className="products-desc">
                 <p className="products-title">{props.title}</p>
                 <p className="products-price">${props.price}</p>
             </div>
-            <button className="add-to-cart">Add to cart</button>
+            <button  className="add-to-cart"  onClick={!isProductButtonCliecked? addtoCartButton: null}>{productCartButtonText}</button>
         </section>
 
     );

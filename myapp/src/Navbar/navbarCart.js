@@ -30,7 +30,7 @@ export function NavbarCartIcon() {
 
 function NavbarCartItemsNumber() {
 
-    const [CartItemsNumber, setCartItemsNumber] = useState(0);
+    const [CartItemsNumber, setCartItemsNumber] = useState(4);
 
 
     return (

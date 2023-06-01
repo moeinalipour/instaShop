@@ -81,7 +81,6 @@ export function CartItem() {
     );
 }
 
-localStorage.setItem('itemsInCart', null);
 
 const cartItemProducts = [
     { id: 1, title: 'Asus 4070', price: 800, thumbnailUrl: product1 },

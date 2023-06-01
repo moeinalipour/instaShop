@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import product1 from './Products-Picture/product1.webp'
 import product2 from './Products-Picture/product2.webp'
 import product3 from './Products-Picture/product3.webp'
 import product4 from './Products-Picture/product4.webp'
 import product5 from './Products-Picture/product5.webp'
+import { CartItemsNumberDispatch } from '../Context/cartItemsNumberContext'
 
 export default function ProductsSection() {
 
@@ -37,13 +38,16 @@ function ProductCard(props) {
 
     const [productCartButtonText, setProductCartButtonText] = useState('Add to cart');
     const [isProductButtonCliecked, setIsProductButtonCliecked] = useState(false);
-    
+    const dispatch = useContext(CartItemsNumberDispatch);
+
     function addtoCartButton() {
         setIsProductButtonCliecked(true);
         setProductCartButtonText('In Cart');
         const product = {id: props.id, title: props.title, price: props.price};
         let currenCartItems = JSON.parse(localStorage.getItem('itemsInCart'));
         let selectedItem = product;
+
+        dispatch({type: 'incrementCartNumber'})
 
         if (currenCartItems === null){
             let selectedItem = [product];

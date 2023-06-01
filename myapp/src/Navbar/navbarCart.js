@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import CartContainer from '../Cart/carContainer';
 import { isCartClickedContext } from "../Cart/isCartClickedContext";
+import { CartItemsNumberContext } from "../Context/cartItemsNumberContext";
 export default function NavbarCart() {
 
 }
@@ -31,11 +32,12 @@ export function NavbarCartIcon() {
 function NavbarCartItemsNumber() {
 
     const [CartItemsNumber, setCartItemsNumber] = useState(4);
-
+    const CartCounter = useContext(CartItemsNumberContext)
 
     return (
-        <span className="cart-items">{CartItemsNumber}</span>
+        <span className="cart-items">{CartCounter}</span>
 
     );
 
 }
+

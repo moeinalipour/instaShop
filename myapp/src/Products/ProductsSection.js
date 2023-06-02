@@ -4,14 +4,14 @@ import product2 from './Products-Picture/product2.webp'
 import product3 from './Products-Picture/product3.webp'
 import product4 from './Products-Picture/product4.webp'
 import product5 from './Products-Picture/product5.webp'
-import { CartItemsNumberDispatch } from '../Context/cartItemsNumberContext'
-
+import {CartDispatchContext} from '../Context/CartContext'
 export default function ProductsSection() {
 
     const productsItems = products.map(product =>
         <ProductCard id={product.id} title={product.title} price={product.price} thumbnail={product.thumbnailUrl} />
 
     )
+
 
     return (
         <section>
@@ -36,30 +36,12 @@ function ProductsSectionTitle() {
 
 function ProductCard(props) {
 
-    const [productCartButtonText, setProductCartButtonText] = useState('Add to cart');
-    const [isProductButtonCliecked, setIsProductButtonCliecked] = useState(false);
-    const dispatch = useContext(CartItemsNumberDispatch);
+    const dispatch = useContext(CartDispatchContext);
 
     function addtoCartButton() {
-        setIsProductButtonCliecked(true);
-        setProductCartButtonText('In Cart');
-        const product = {id: props.id, title: props.title, price: props.price};
-        let currenCartItems = JSON.parse(localStorage.getItem('itemsInCart'));
-        let selectedItem = product;
-
-        dispatch({type: 'incrementCartNumber'})
-
-        if (currenCartItems === null){
-            let selectedItem = [product];
-
-            localStorage.setItem('itemsInCart' , JSON.stringify(selectedItem));
-            console.log( JSON.parse(localStorage.getItem('itemsInCart')));
-        }
-        else{
-            currenCartItems.push(selectedItem);
-            localStorage.setItem('itemsInCart', JSON.stringify(currenCartItems));
-            console.log( JSON.parse(localStorage.getItem('itemsInCart')));
-        }
+        dispatch(
+            {type: 'AddToCart' , id: props.id ,image: props.thumbnail, title: props.title , price: props.price}
+        )
     }
 
 
@@ -72,7 +54,7 @@ function ProductCard(props) {
                 <p className="products-title">{props.title}</p>
                 <p className="products-price">${props.price}</p>
             </div>
-            <button  className="add-to-cart"  onClick={!isProductButtonCliecked? addtoCartButton: null}>{productCartButtonText}</button>
+            <button  className="add-to-cart"  onClick={addtoCartButton}>Add To Cart</button>
         </section>
 
     );

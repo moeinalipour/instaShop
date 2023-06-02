@@ -10,11 +10,15 @@ import product2 from '../Products/Products-Picture/product1.webp'
 import product3 from '../Products/Products-Picture/product1.webp'
 import product4 from '../Products/Products-Picture/product1.webp'
 import product5 from '../Products/Products-Picture/product1.webp'
+import { CartContext } from "../Context/CartContext";
+
 
 
 
 export default function CartContainer({ isCartClicked }) {
-
+    
+    const initialCart = useContext(CartContext);
+    const initialCartItems = initialCart.CartItems;
     const isCartClickedDispatch = useContext(isCartClickedContext);
 
     function cartCloseButton() {
@@ -23,16 +27,21 @@ export default function CartContainer({ isCartClicked }) {
     }
 
 
+    const CartItems = initialCartItems.map(product => 
+        <CartItem image={product.image} title={product.title} price={product.price}  />
+    
+    )
+
+
     if (isCartClicked) {
+
+    
         return (
             <div className="cartContainer" >
                 <div className="cartSection">
                     <h3>Your Cart</h3>
                     <div className="cart-items-wrapper">
-                    <CartItem/>
-                    <CartItem/>
-                    <CartItem/>
-                    <CartItem/>
+                        {CartItems}
                     </div>
                     <div className="cart-section-close-icon" onClick={cartCloseButton}>
                         <FontAwesomeIcon icon={faXmark} />
@@ -45,21 +54,19 @@ export default function CartContainer({ isCartClicked }) {
 }
 
 
-export function CartItem() {
-    console.log(product1)
-
+export function CartItem(props) {
 
     return (
         <div className="cart-item">
             <div className="cart-item-img-wrapper">
-                <img src={product1} alt="product1" />
+                <img src={props.image} alt="product1" />
             </div>
             <div className="cart-item-details">
                 <div className="cart-item-title">
-                    <h3>Asus 4070</h3>
+                    <h3>{props.title}</h3>
                 </div>
                 <div className="cart-item-price">
-                    <p>$ 800</p>
+                    <p>$ {props.price}</p>
                 </div>
             </div>
             <div className="cart-item-count-section">

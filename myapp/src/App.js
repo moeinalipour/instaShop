@@ -1,18 +1,19 @@
 import './App.css';
-import { CartItemsNumberProvider } from './Context/cartItemsNumberContext';
+import { CartProvider } from './Context/CartContext';
 import Navbar from './Navbar/navbar';
 import ProductsSection from './Products/ProductsSection';
 
 function App() {
   return (
     <>
-      <CartItemsNumberProvider>
-        <Navbar />
-        <ProductsSection />
-      </CartItemsNumberProvider>
+        <CartProvider>
+          <Navbar />
+          <ProductsSection />
+        </CartProvider>
     </>
   );
 }
 
-
 export default App;
+
+

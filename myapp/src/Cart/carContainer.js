@@ -23,12 +23,11 @@ export default function CartContainer({ isCartClicked }) {
 
     function cartCloseButton() {
         isCartClickedDispatch(false);
-        console.log(isCartClicked);
     }
 
 
     const CartItems = initialCartItems.map(product => 
-        <CartItem id={product.id} image={product.image} title={product.title} price={product.price}  />
+        <CartItem id={product.id} image={product.image} title={product.title} price={product.price} qty={product.qty} />
     
     )
 
@@ -60,7 +59,7 @@ export function CartItem(props) {
     
     function deletebutton(){
     
-        dispatch({type: 'DeleteFromCart', id: props.id});
+        dispatch({type: 'DeleteFromCart', id: props.id, qty: props.qty});
 
     }
 
@@ -80,7 +79,7 @@ export function CartItem(props) {
             <div className="cart-item-count-section">
                 <FontAwesomeIcon icon={faMinus}  className="cart-item-count-decrement"/>
 
-                <div className="cart-item-count-number">5</div>
+                <div className="cart-item-count-number">{props.qty}</div>
                 <FontAwesomeIcon icon={faPlus}  className="cart-item-count-increment"/>
 
             </div>

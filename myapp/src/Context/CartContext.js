@@ -5,7 +5,7 @@ export const CartDispatchContext = createContext(null);
 
 const initialCartPattern = {
     "CartItems": [],
-    "Length": 
+    "Length":
         0
     ,
     "TotalPrice": [
@@ -15,10 +15,10 @@ const initialCartPattern = {
 
 localStorage.removeItem('NewitemsInCart')
 
-if (localStorage.getItem('NewitemsInCart') === null){
+if (localStorage.getItem('NewitemsInCart') === null) {
     localStorage.setItem('NewitemsInCart', JSON.stringify(initialCartPattern));
     console.log('Inital Cart Local Storage Created');
-    
+
 }
 
 export function CartProvider({ children }) {
@@ -36,53 +36,73 @@ export function CartProvider({ children }) {
 
 
 function CartReducer(Cart, action) {
-    
+
+
     let CurrentCart = JSON.parse(localStorage.getItem('NewitemsInCart'));
-    
-    
+
+
     if (action.type === 'AddToCart') {
-        
-        let SelectedItem = {id: action.id,image: action.image, title: action.title, price: action.price, qty: 1}
+        let SelectedItem = { id: action.id, image: action.image, title: action.title, price: action.price, qty: 1 }
 
-    
-        CurrentCart = {
-            ...CurrentCart,
-            CartItems: [...Cart.CartItems, SelectedItem],
-            Length: Cart.Length + 1,
-        };
-        localStorage.setItem('NewitemsInCart', JSON.stringify(CurrentCart));
+        const existingItemIndex = Cart.CartItems.findIndex(item => item.id === action.id);
 
+        if (existingItemIndex !== -1) {
+
+            const updatedCartItems = [...Cart.CartItems];
+
+
+            updatedCartItems[existingItemIndex] = {
+                ...updatedCartItems[existingItemIndex],
+                qty: updatedCartItems[existingItemIndex].qty + 1
+            };
+
+            // update Cart with the modified cart items and length
+            CurrentCart = {
+                ...Cart,
+                CartItems: [...updatedCartItems],
+                Length: Cart.Length + 1,
+            };
+            localStorage.setItem('NewitemsInCart', JSON.stringify(CurrentCart));
+
+        }
+        else {
+            CurrentCart = {
+                ...CurrentCart,
+                CartItems: [...Cart.CartItems, SelectedItem],
+                Length: Cart.Length + 1,
+            };
+            localStorage.setItem('NewitemsInCart', JSON.stringify(CurrentCart));
+
+
+            // return CurrentCart;
+
+        }
 
         return CurrentCart;
 
 
     }
     else if (action.type === 'DeleteFromCart') {
-
+        var qty = 0;
         const filteredCart = CurrentCart.CartItems.filter(
-            t=> t.id !== action.id
+            t => t.id !== action.id
         );
 
         CurrentCart = {
             ...CurrentCart,
             CartItems: filteredCart,
-            Length: Cart.Length - 1,
+            Length: Cart.Length - action.qty,
         };
+
 
         localStorage.setItem('NewitemsInCart', JSON.stringify(CurrentCart));
 
-        console.log(JSON.parse(localStorage.getItem('NewitemsInCart')))
 
         return CurrentCart;
 
-
-    
-        console.log(filteredCart)
-    
-
     }
     else if (action.type === 'MakeCartEmpty') {
-        
+
     }
 }
 

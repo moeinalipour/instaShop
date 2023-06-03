@@ -10,7 +10,7 @@ import product2 from '../Products/Products-Picture/product1.webp'
 import product3 from '../Products/Products-Picture/product1.webp'
 import product4 from '../Products/Products-Picture/product1.webp'
 import product5 from '../Products/Products-Picture/product1.webp'
-import { CartContext } from "../Context/CartContext";
+import { CartContext, CartDispatchContext } from "../Context/CartContext";
 
 
 
@@ -28,7 +28,7 @@ export default function CartContainer({ isCartClicked }) {
 
 
     const CartItems = initialCartItems.map(product => 
-        <CartItem image={product.image} title={product.title} price={product.price}  />
+        <CartItem id={product.id} image={product.image} title={product.title} price={product.price}  />
     
     )
 
@@ -56,6 +56,14 @@ export default function CartContainer({ isCartClicked }) {
 
 export function CartItem(props) {
 
+    const dispatch = useContext(CartDispatchContext);
+    
+    function deletebutton(){
+    
+        dispatch({type: 'DeleteFromCart', id: props.id});
+
+    }
+
     return (
         <div className="cart-item">
             <div className="cart-item-img-wrapper">
@@ -79,7 +87,7 @@ export function CartItem(props) {
 
             <div className="cart-item-delete-section">
                 <i className="fa-regular fa-trash-can fa-lg cart-item-delete-icon"></i>
-                <FontAwesomeIcon icon={faTrashCan}  className="cart-item-delete-icon"/>
+                <FontAwesomeIcon icon={faTrashCan} onClick={deletebutton}  className="cart-item-delete-icon"/>
 
             </div>
 

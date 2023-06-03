@@ -13,7 +13,7 @@ const initialCartPattern = {
     ]
 }
 
-// localStorage.removeItem('NewitemsInCart')
+localStorage.removeItem('NewitemsInCart')
 
 if (localStorage.getItem('NewitemsInCart') === null){
     localStorage.setItem('NewitemsInCart', JSON.stringify(initialCartPattern));
@@ -38,11 +38,13 @@ export function CartProvider({ children }) {
 function CartReducer(Cart, action) {
     
     let CurrentCart = JSON.parse(localStorage.getItem('NewitemsInCart'));
-    const SelectedItem = {id: action.id,image: action.image, title: action.title, price: action.price};
-
-
+    
+    
     if (action.type === 'AddToCart') {
+        
+        let SelectedItem = {id: action.id,image: action.image, title: action.title, price: action.price, qty: 1}
 
+    
         CurrentCart = {
             ...CurrentCart,
             CartItems: [...Cart.CartItems, SelectedItem],
@@ -56,6 +58,27 @@ function CartReducer(Cart, action) {
 
     }
     else if (action.type === 'DeleteFromCart') {
+
+        const filteredCart = CurrentCart.CartItems.filter(
+            t=> t.id !== action.id
+        );
+
+        CurrentCart = {
+            ...CurrentCart,
+            CartItems: filteredCart,
+            Length: Cart.Length - 1,
+        };
+
+        localStorage.setItem('NewitemsInCart', JSON.stringify(CurrentCart));
+
+        console.log(JSON.parse(localStorage.getItem('NewitemsInCart')))
+
+        return CurrentCart;
+
+
+    
+        console.log(filteredCart)
+    
 
     }
     else if (action.type === 'MakeCartEmpty') {

@@ -40,7 +40,7 @@ function ProductCard(props) {
 
     function addtoCartButton() {
         dispatch(
-            {type: 'AddToCart' , id: props.id ,image: props.thumbnail, title: props.title , price: props.price}
+            {type: 'AddToCart' , id: props.id ,image: props.thumbnail, title: props.title , price: props.price, qty: 1}
         )
     }
 

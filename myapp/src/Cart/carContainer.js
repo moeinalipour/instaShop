@@ -63,6 +63,16 @@ export function CartItem(props) {
 
     }
 
+    function IncreaseButton(){
+        dispatch({type: 'IncreaseItem', id: props.id, qty: props.qty});
+
+    }
+
+    function DecreaseButton(){
+        dispatch({type: 'DecreaseItem', id: props.id, qty: props.qty});
+
+    }
+
     return (
         <div className="cart-item">
             <div className="cart-item-img-wrapper">
@@ -77,10 +87,10 @@ export function CartItem(props) {
                 </div>
             </div>
             <div className="cart-item-count-section">
-                <FontAwesomeIcon icon={faMinus}  className="cart-item-count-decrement"/>
+                <FontAwesomeIcon onClick={DecreaseButton} icon={faMinus}  className="cart-item-count-decrement"/>
 
                 <div className="cart-item-count-number">{props.qty}</div>
-                <FontAwesomeIcon icon={faPlus}  className="cart-item-count-increment"/>
+                <FontAwesomeIcon onClick={IncreaseButton} icon={faPlus}  className="cart-item-count-increment"/>
 
             </div>
 

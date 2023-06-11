@@ -1,14 +1,30 @@
-import { useContext, useRef, useState } from 'react'
-import product1 from './Products-Picture/product1.webp'
-import product2 from './Products-Picture/product2.webp'
-import product3 from './Products-Picture/product3.webp'
-import product4 from './Products-Picture/product4.webp'
-import product5 from './Products-Picture/product5.webp'
-import {CartDispatchContext} from '../Context/CartContext'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { CartDispatchContext } from '../Context/CartContext'
+import axios from 'axios'
+
+
+
+
 export default function ProductsSection() {
 
+    // This is my state for products read from API
+    const [products, setProducts] = useState([]);
+
+
+    //Here i call API when component mount
+    useEffect(() => {
+         axios.get('http://localhost:4000/products').then(function (response) {
+            
+            //Here i store the data that i give from API in state
+            setProducts(response.data);
+        })
+            .catch(function (error) {
+            })
+    }, [])
+
+    // Here i map for show Products component for each products
     const productsItems = products.map(product =>
-        <ProductCard id={product.id} title={product.title} price={product.price} thumbnail={product.thumbnailUrl} />
+        <ProductCard id={product.id} title={product.name} price={product.price} thumbnail={product.imageName} />
 
     )
 
@@ -40,7 +56,7 @@ function ProductCard(props) {
 
     function addtoCartButton() {
         dispatch(
-            {type: 'AddToCart' , id: props.id ,image: props.thumbnail, title: props.title , price: props.price, qty: 1}
+            { type: 'AddToCart', id: props.id, image: props.thumbnail, title: props.title, price: props.price, qty: 1 }
         )
     }
 
@@ -54,16 +70,9 @@ function ProductCard(props) {
                 <p className="products-title">{props.title}</p>
                 <p className="products-price">${props.price}</p>
             </div>
-            <button  className="add-to-cart"  onClick={addtoCartButton}>Add To Cart</button>
+            <button className="add-to-cart" onClick={addtoCartButton}>Add To Cart</button>
         </section>
 
     );
 }
 
-const products = [
-    { id: 1, title: 'Asus 4070', price: 800, thumbnailUrl: product1 },
-    { id: 2, title: 'Keyboard Gaming', price: 750, thumbnailUrl: product2 },
-    { id: 3, title: 'Mouse Gaming', price: 350, thumbnailUrl: product3 },
-    { id: 4, title: 'Case Gaming', price: 550.5, thumbnailUrl: product4 },
-    { id: 5, title: 'Motherboard Gaming', price: 1100, thumbnailUrl: product5 }
-]

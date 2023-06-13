@@ -12,8 +12,8 @@ function App() {
         <CartProvider>
           <Navbar />
           <Routes>
-          <Route path="/" element={<ProductsSection />} />
-          <Route path="/manager" element={<ManagerPage />} />
+            <Route path="/" element={<ProductsSection />} />
+            <Route path="/manager" element={<ManagerPage />} />
           </Routes>
         </CartProvider>
       </Router>
